@@ -17,7 +17,6 @@ public class Text extends Drawable{
     YAlignment yAlignment = YAlignment.Top;
     public GlyphLayout layout;
 
-
     public Text (BitmapFont font, String text, float x, float y) {
         this.Font = font;
         this.Position = new Vector2(x, y);
@@ -71,7 +70,9 @@ public class Text extends Drawable{
 
     @Override
     public void render(Object object, boolean started) {
-        SpriteBatch batch = (SpriteBatch) object;
+	    if (!Visible) return;
+
+	    SpriteBatch batch = (SpriteBatch) object;
         if (!started)
             batch.begin();
 

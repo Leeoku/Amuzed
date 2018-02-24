@@ -16,6 +16,7 @@ public abstract class Drawable {
         public float FadeTime = 2;
         public boolean Alive = true;
         public boolean WasDead = false;
+        public boolean Visible = true;
 
         public void Update(float delta) {
             Life += delta;

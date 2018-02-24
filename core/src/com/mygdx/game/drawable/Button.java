@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 
 public class Button extends Drawable {
-	Rectangle button = new Rectangle(0,0,50,20);
+	public Rectangle button = new Rectangle(0,0,50,20);
 	Rectangle shadow = new Rectangle(0, 0, 30, 5);
 	Rectangle background = new Rectangle(0, 0, 30, 5);
 	Color color;
@@ -48,8 +48,13 @@ public class Button extends Drawable {
 		}
 	}
 
+	public void setRunnable(Runnable runnable) {
+		this.runnable = runnable;
+	}
+
 	@Override
 	public void render(Object o, boolean started) {
+		if (!Visible) return;
 		background.render(o, started);
 		button.render(o, started);
 		shadow.render(o, started);

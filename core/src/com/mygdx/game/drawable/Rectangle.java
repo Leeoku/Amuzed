@@ -52,7 +52,9 @@ public class Rectangle extends Drawable {
 	}
 
     public void render(Object object, boolean started) {
-        ShapeRenderer shapeRenderer = (ShapeRenderer)object;
+	    if (!Visible) return;
+
+	    ShapeRenderer shapeRenderer = (ShapeRenderer)object;
 
         if (Transparency < 1) {
             if (started) {
