@@ -4,14 +4,14 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class Drawable {
 
-        public Color Color = Colors.MidnightBlue;
+        public Color color = Colors.MidnightBlue;
         public Color FadeColor = Colors.Purple;
         public float Transparency = 1;
 
-        public Vector2 Position;
-        public Vector2 Size;
-        public Vector2 Velocity;
-        public Vector2 OrginOffset;
+        public Vector2 Position = new Vector2();
+        public Vector2 Size = new Vector2();
+        public Vector2 Velocity = new Vector2();
+        public Vector2 OrginOffset = new Vector2();
         public float Life = 0;
         public float FadeTime = 2;
         public boolean Alive = true;
@@ -28,10 +28,12 @@ public abstract class Drawable {
         }
 
         public Color GetCurrentColor() {
-            if (Life < FadeTime)
-                return Colors.interpolate(FadeColor, Color, FadeTime, Life);
+        	return color;
+
+            /*if (Life < FadeTime)
+                return Colors.interpolate(FadeColor, color, FadeTime, Life);
             else
-                return Color;
+                return color;*/
         }
 
         public Color GetTransparentColor() {

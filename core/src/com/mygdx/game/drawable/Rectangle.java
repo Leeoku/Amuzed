@@ -21,6 +21,7 @@ public class Rectangle extends Drawable {
         Velocity = new Vector2();
         OrginOffset = new Vector2();
     }
+
     public Rectangle(Vector2 position, Vector2 size) {
         this.Position = position;
         this.Size = size;
@@ -31,15 +32,24 @@ public class Rectangle extends Drawable {
     public Vector2 GetMin() {
         return new Vector2(Position.x - OrginOffset.x, Position.y - OrginOffset.y);
     }
+
     public Vector2 GetMax() { return new Vector2(Position.x - OrginOffset.x + Size.x, Position.y - OrginOffset.y + Size.y);}
 
-    public boolean isCollide(Rectangle rect) {
-        if (rect.GetMax().y < GetMin().y) return false;
-        if (rect.GetMax().x < GetMin().x) return false;
-        if (rect.GetMin().y > GetMax().y) return false;
-        if (rect.GetMin().x > GetMax().x) return false;
-        return true;
-    }
+	public boolean isCollide(Rectangle rect) {
+		if (rect.GetMax().y < GetMin().y) return false;
+		if (rect.GetMax().x < GetMin().x) return false;
+		if (rect.GetMin().y > GetMax().y) return false;
+		if (rect.GetMin().x > GetMax().x) return false;
+		return true;
+	}
+
+	public boolean isCollide(int x, int y) {
+		if (y < GetMin().y) return false;
+		if (x < GetMin().x) return false;
+		if (y > GetMax().y) return false;
+		if (x > GetMax().x) return false;
+		return true;
+	}
 
     public void render(Object object, boolean started) {
         ShapeRenderer shapeRenderer = (ShapeRenderer)object;

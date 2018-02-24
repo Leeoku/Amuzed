@@ -3,7 +3,6 @@ package com.mygdx.game.drawable;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.drawable.enums.XAlignment;
 import com.mygdx.game.drawable.enums.YAlignment;
@@ -22,7 +21,7 @@ public class Text extends Drawable{
     public Text (BitmapFont font, String text, float x, float y) {
         this.Font = font;
         this.Position = new Vector2(x, y);
-        this.Color = Colors.Clouds;
+        this.color = Colors.Clouds;
         layout = new GlyphLayout(); //dont do this every frame! Store it as member
         setText(text);
     }
@@ -80,7 +79,7 @@ public class Text extends Drawable{
 //        font.setColor(getCurrentColor());
         Vector2 p = getAlignmentPosition();
 
-        Font.setColor(Color);
+        Font.setColor(color);
         Font.draw(batch, text, p.x, p.y);
         if (!started)
             batch.end();

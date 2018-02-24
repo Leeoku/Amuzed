@@ -14,8 +14,8 @@ import com.mygdx.game.screens.GameScreen;
 import sun.security.pkcs11.wrapper.Functions;
 
 public class MyGdxGame extends Game {
-	public static int Width = (int)(1080 * 0.4);
-	public static int Height = (int)(1920 * 0.4);
+	public static int Width = (int)(1080 * 0.3);
+	public static int Height = (int)(1920 * 0.3);
 	public static String Title = "Square Swipe";
 
 	public SpriteBatch batch;

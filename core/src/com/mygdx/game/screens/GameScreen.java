@@ -44,7 +44,6 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         update(delta);
         gameManager.render();
-
     }
 
     @Override
