@@ -19,7 +19,7 @@ android {
     }
     defaultConfig {
         applicationId "com.mygdx.game"
-        minSdkVersion 9
+        minSdkVersion 23
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -29,6 +29,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    dependencies {
+        implementation 'com.android.support:appcompat-v7:26.1.0'
+        compile files('libs/libmuse_android.jar')
     }
 }
 

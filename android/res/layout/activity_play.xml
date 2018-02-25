@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/eeg_0_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_above="@id/eeg_2_layout"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/eeg_0_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eeg_0_title" />
+
+        <TextView
+            android:id="@+id/eeg_0_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1000.0"
+            android:layout_below="@id/eeg_0_title"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/eeg_2_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/eeg_2_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eeg_3_title" />
+
+        <TextView
+            android:id="@+id/eeg_2_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1000.0"
+            android:layout_below="@id/eeg_2_title"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
