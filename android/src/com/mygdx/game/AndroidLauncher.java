@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -15,7 +15,6 @@ import com.choosemuse.libmuse.MuseDataListener;
 import com.choosemuse.libmuse.MuseDataPacketType;
 import com.choosemuse.libmuse.MuseListener;
 import com.choosemuse.libmuse.MuseManagerAndroid;
-import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.muse.data.MuseDataStorage;
 import com.mygdx.game.muse.listeners.FocusDataListener;
 import com.mygdx.game.muse.listeners.FocusListener;
@@ -68,12 +67,23 @@ public class AndroidLauncher extends AndroidApplication {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.connect_dialog_title);
 		builder.setMessage(R.string.connect_dialog_content);
-		builder.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
+		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialogInterface, int i) {
 				AndroidLauncher.this.finish();
 			}
 		});
 		builder.show();
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+		if (muse != null) {
+			Toast.makeText(this, R.string.muse_disconnection_toast, Toast.LENGTH_SHORT).show();
+            ((FocusDataListener) dataListener).stopListening();
+			muse.disconnect();
+		}
 	}
 }

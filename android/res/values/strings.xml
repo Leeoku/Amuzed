@@ -27,6 +27,6 @@
     <string name="eeg_3_title">EEG 3</string>
     <string name="connect_dialog_title">Please connect your Muse!</string>
     <string name="connect_dialog_content">Please connect your Muse using the connect section to ensure everything is working.</string>
-    <string name="ok_text">Ok</string>
+    <string name="muse_disconnection_toast">Disconnecting Muse&#8230;</string>
 
 </resources>
