@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -32,7 +33,12 @@ public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setMuseElements();
+
+		// Muse SDK only has a shared library for armeabi-v7a ABI's
+		if (Build.SUPPORTED_ABIS[0].equals("armeabi-v7a")) {
+			setMuseElements();
+		}
+
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		initialize(new MyGdxGame(), config);
 	}
