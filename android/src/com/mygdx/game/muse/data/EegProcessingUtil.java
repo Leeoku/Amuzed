@@ -35,11 +35,16 @@ public class EegProcessingUtil {
      */
     public static boolean processSamplesAverage(double[] averages) {
 
-        double min = findMinInArray(averages);
-        double max = findMaxInArray(averages);
-        double difference = Math.abs(max - min);
-
-        return (difference > EEG_CALM_THRESHOLD);
+        // Take the current average value and compare to initial to see if change is calm.
+        // We need to define calm as positive or negative???
+        // Compare the absolute of difference to threshold
+        double difference = averages[averages.length - 1] - averages[0];
+        if (difference < 0) {
+            double thresholdComparison = Math.abs(difference);
+            return (thresholdComparison >= EEG_CALM_THRESHOLD);
+        } else {
+            return (false);
+        }
     }
 
     public static double findMinInArray(double[] values) {
