@@ -38,7 +38,7 @@ public class GameManager implements InputProcessor {
 	Text title;
 	Text counter;
 
-    Button testButton = new Button(width/2, height/2, 80, 30);
+    Button testButton = new Button(width/2, height - height/3, 80, 30);
     Rectangle[] rectangles = new Rectangle[9];
     Color[] colors = {
 		    Colors.rgb(254, 215, 102),
@@ -47,6 +47,7 @@ public class GameManager implements InputProcessor {
 		    Colors.rgb(254, 74, 73),
 		    Colors.rgb(142, 40, 122)
     };
+    Color goalColor = Colors.Green;
 
     boolean getFocused() {
     	return ((int)Library.random(0,100)%2) == 0;
@@ -76,9 +77,25 @@ public class GameManager implements InputProcessor {
 	        }
         };
         testButton.setRunnable(runnable);
-    }
+        int rectangleSize = (width - 100)/3;
+        for (int i = 0; i < 9; i++) {
+        	int x = i % 3;
+        	int y = i / 3;
+	        x = x*25 + x*rectangleSize + 25;
+	        y = y*25 + y*rectangleSize + 50;
 
+        	rectangles[i] = new Rectangle(x, y, rectangleSize, rectangleSize);
+        }
+        setRandomRectangleColors();
+    }
+    Color getRandomColor() {
+    	int index = (int)Library.random(0, colors.length);
+    	return colors[index];
+    }
     void setRandomRectangleColors() {
+    	for (int i = 0; i < 9; i++) {
+    		rectangles[i].color = getRandomColor();
+	    }
     }
 
     void restart() {
@@ -101,7 +118,6 @@ public class GameManager implements InputProcessor {
     	title.setText("Focus");
     }
 
-
     void print(String title, Vector2 vector) {
         System.out.println(title + " x: " + vector.x + ", y: " + vector.y);
     }
@@ -116,7 +132,6 @@ public class GameManager implements InputProcessor {
 		    }
 	    }
     }
-
 
     public void renderText() {
         main.batch.begin();
@@ -133,6 +148,9 @@ public class GameManager implements InputProcessor {
         background.render(main.shapeRenderer, true);
 
 	    testButton.render(main.shapeRenderer, true);
+	    for (int i = 0; i < 9;i++) {
+	    	rectangles[i].render(main.shapeRenderer, true);
+	    }
 
         main.shapeRenderer.end();
 

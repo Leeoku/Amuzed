@@ -51,6 +51,32 @@ public class Rectangle extends Drawable {
 		return true;
 	}
 
+	public void roundedRect(Object object) {
+    	float x = Position.x;
+    	float y = Position.y;
+    	float width = Size.x;
+    	float height = Size.y;
+    	float radius = 15;
+		ShapeRenderer shapeRenderer = (ShapeRenderer)object;
+
+
+
+		// Central rectangle
+		shapeRenderer.rect(x + radius, y + radius, width - 2*radius, height - 2*radius);
+
+		// Four side rectangles, in clockwise order
+		shapeRenderer.rect(x + radius, y, width - 2*radius, radius);
+		shapeRenderer.rect(x + width - radius, y + radius, radius, height - 2*radius);
+		shapeRenderer.rect(x + radius, y + height - radius, width - 2*radius, radius);
+		shapeRenderer.rect(x, y + radius, radius, height - 2*radius);
+
+		// Four arches, clockwise too
+		shapeRenderer.arc(x + radius, y + radius, radius, 180f, 90f);
+		shapeRenderer.arc(x + width - radius, y + radius, radius, 270f, 90f);
+		shapeRenderer.arc(x + width - radius, y + height - radius, radius, 0f, 90f);
+		shapeRenderer.arc(x + radius, y + height - radius, radius, 90f, 90f);
+	}
+
     public void render(Object object, boolean started) {
 	    if (!Visible) return;
 
@@ -73,7 +99,8 @@ public class Rectangle extends Drawable {
 
 
         shapeRenderer.setColor(GetTransparentColor());
-        shapeRenderer.rect(Position.x - OrginOffset.x, Position.y - OrginOffset.y, Size.x, Size.y);
+//        shapeRenderer.rect(Position.x - OrginOffset.x, Position.y - OrginOffset.y, Size.x, Size.y);
+	    roundedRect(object);
 
         if (!started)
             shapeRenderer.end();
