@@ -47,8 +47,6 @@ public class AndroidLauncher extends AndroidApplication {
 			showConnectDialog();
 		} else {
 			handler = new Handler();
-			final TextView eeg0 = findViewById(R.id.eeg_0_content);
-			final TextView eeg2 = findViewById(R.id.eeg_2_content);
 
 			// Set the listeners
 			listener = new FocusListener();
@@ -57,21 +55,12 @@ public class AndroidLauncher extends AndroidApplication {
 
 			managerAndroid.setMuseListener(listener);
 
-
 			muse = managerAndroid.getMuses().get(0);
 
 			Log.d(getClass().getSimpleName(), "Muse information: " + muse.getName());
 			muse.registerDataListener(dataListener, MuseDataPacketType.EEG);
 			muse.runAsynchronously();
 
-			handler.post(new Runnable() {
-				@Override
-				public void run() {
-					eeg0.setText(Double.toString(museDataStorage.getLastEeg0Value()));
-					eeg2.setText(Double.toString(museDataStorage.getLastEeg2Value()));
-					handler.postDelayed(this, 1000);
-				}
-			});
 		}
 	}
 
