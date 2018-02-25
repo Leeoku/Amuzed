@@ -19,12 +19,14 @@ public class Button extends Drawable {
 		setPosition(x, y);
 		setColor(Colors.Blue);
 	}
+
 	void setColor(Color color) {
 		this.color = color;
 		button.color = color;
 		shadow.color = Colors.interpolate(color, Color.BLACK, 1, .2f);
 		background.color = Colors.rgb(200,200,200);
 	}
+
 	void setPosition(int x, int y) {
 		Vector2 half = new Vector2(background.Size.x/2, 0);
 		background.Position.set(x,y).sub(half);
@@ -44,6 +46,7 @@ public class Button extends Drawable {
 
 	public void checkForClick(int x, int y) {
 		if (button.isCollide(x, y)) {
+			if (runnable == null) return;
 			runnable.run();
 		}
 	}

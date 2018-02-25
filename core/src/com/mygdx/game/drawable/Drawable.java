@@ -3,7 +3,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Drawable {
-
         public Color color = Colors.MidnightBlue;
         public Color FadeColor = Colors.Purple;
         public float Transparency = 1;
@@ -13,7 +12,7 @@ public abstract class Drawable {
         public Vector2 Velocity = new Vector2();
         public Vector2 OrginOffset = new Vector2();
         public float Life = 0;
-        public float FadeTime = .5f;
+        public float FadeTime = 5f;
         public boolean Alive = true;
         public boolean WasDead = false;
         public boolean Visible = true;
@@ -23,28 +22,30 @@ public abstract class Drawable {
             Life += delta;
             Position.x = Position.x + Velocity.x * delta;
             Position.y = Position.y + Velocity.y * delta;
-            color = GetCurrentColor();
-
-    }
+            //color = GetCurrentColor();
+        }
 
         public void reset() {
             Life = 0;
             Fade = false;
-	        Color oldColor = color;
-	        Life = 0;
+
         }
 
         public Color GetCurrentColor() {
-        	if (!Fade) return color;
+        	if (!Fade) {
+		        return color;
+        	}
 
-            if ((Life < FadeTime)) {
-	            return Colors.interpolate(FadeColor, color, FadeTime, Life);
+            if (Life < FadeTime) {
+//	            System.out.println("Life " + Life + ", FadeTime " + FadeTime);
+	            System.out.println("live < fadetime ");
+
+	            return Colors.interpolate(color, FadeColor, FadeTime, Life);
             } else {
 	            reset();
-	            color = Colors.interpolate(FadeColor, color, FadeTime, Life);
+	            color = Colors.interpolate(color, FadeColor, FadeTime, FadeTime);
                 return color;
             }
-
         }
 
         public Color GetTransparentColor() {
@@ -54,5 +55,4 @@ public abstract class Drawable {
         }
 
         public abstract void render(Object o, boolean started);
-
     }

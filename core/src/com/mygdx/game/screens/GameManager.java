@@ -42,17 +42,16 @@ public class GameManager implements InputProcessor {
     Button testButton = new Button(width/2, height - height/3, width/3, width/10);
     Rectangle[] rectangles = new Rectangle[9];
     Color[] colors = {
-		    Colors.rgb(254, 215, 102),
-		    Colors.rgb(42, 183, 202),
-		    Colors.rgb(12, 98, 145),
-		    Colors.rgb(254, 74, 73),
-		    Colors.rgb(142, 40, 122),
-		    Colors.rgb(94, 86, 90),
-		    Colors.rgb(255, 147, 79),
-		    Colors.rgb(32, 163, 158)
+    		Colors.Blue,
+		    Colors.DarkBlue,
+		    Colors.DarkPurple,
+		    Colors.DarkRed,
+		    Colors.DarkGreen,
+		    Colors.Green,
+		    Colors.MidnightBlue
 //		    Colors.rgb(186, 63, 29)
     };
-    Color goalColor = Colors.Green;
+    Color goalColor = backgroundColor;
 
     boolean getFocused() {
     	return ((int)Library.random(0,100)%2) == 0;
@@ -80,6 +79,7 @@ public class GameManager implements InputProcessor {
 	    title.color = Colors.rgb(42, 183, 202);
 	    counter = new Text(this.main.font50, "3", width/2, height - 100);
 	    counter.color = Colors.rgb(42, 183, 202);
+	    counter.Visible = false;
 
 	    background = new Rectangle(0, 0, width, height);
         background.color = backgroundColor;
@@ -114,34 +114,46 @@ public class GameManager implements InputProcessor {
 	    }
     }
 
+
+
     void updateRectangles(float delta) {
+
 	    int focus;
 	    if (getFocused()) {
 		    focus = 1;
 	    }   else {
 			focus = 0;
 	    }
+	    currentFocusTime = currentFocusTime + focus * delta;
 
     	for (int i = 0; i < 9; i++) {
 			rectangles[i].Update(delta);
-		    //rectangles[i].FadeColor
+		    if (index == i) {
+		    	if (!rectangles[i].Fade) {
+		    		index++;
+		    		if (index < 9) {
+					    rectangles[index].Fade = true;
+					    rectangles[index].FadeColor = backgroundColor;
+					    rectangles[index].Life = 0;
+					    rectangles[index].FadeTime = 5f;
+				    }
+			    }
+		    }
 	    }
-	    rectangles[index].Fade = true;
-	    rectangles[index].FadeColor = goalColor;
     }
 
     void restart() {
     	started = false;
     	countingDown = false;
     	life = 0;
-	    testButton = new Button(width/2, height/2, 80, 30);
-
+    	testButton.Visible = false;
 	    //variable clear
 	    level = 1;
 	    index = 0;
 	    cleared = 0;
 	    focusTime = 5;
 	    currentFocusTime = 0;
+
     }
 
     void startCountDown() {
@@ -150,6 +162,7 @@ public class GameManager implements InputProcessor {
     	testButton.Visible = false;
     	title.setText("Get Ready!");
     }
+
     void startGame() {
     	countingDown = false;
     	started = true;
@@ -158,6 +171,10 @@ public class GameManager implements InputProcessor {
 	    for (int i = 0; i < 9; i++) {
 		    rectangles[i].Visible = true;
 	    }
+	    rectangles[0].Fade = true;
+	    rectangles[0].FadeColor = goalColor;
+
+	    restart();
     }
 
     void print(String title, Vector2 vector) {

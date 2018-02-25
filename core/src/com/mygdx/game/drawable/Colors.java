@@ -1,6 +1,7 @@
 package com.mygdx.game.drawable;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Library;
 
 /**
@@ -26,12 +27,9 @@ public class Colors {
 
     public static Color interpolate(Color start, Color end, float totalTime, float currentTime) {
         float fraction = currentTime / totalTime;
-        float rExtra = end.r - start.r;
-        float gExtra = end.g - start.g;
-        float bExtra = end.b - start.b;
-        float aExtra = end.a - start.a;
 
-        Color currentColor = new Color(rExtra * fraction + start.r, gExtra * fraction + start.g, bExtra * fraction + start.b, aExtra * fraction + start.a);
+        Color currentColor = new Color(start).lerp(end, fraction);
+	    //new Color(direction.x + start.r, direction.y + start.g, direction.z + start.b, aExtra * fraction + start.a);
         return currentColor;
     }
 
