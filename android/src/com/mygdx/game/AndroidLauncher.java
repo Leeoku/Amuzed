@@ -38,11 +38,11 @@ public class AndroidLauncher extends AndroidApplication implements EegDataProces
 		// Muse SDK only has a shared library for armeabi-v7a ABI's
 		if (Build.SUPPORTED_ABIS[0].equals("armeabi-v7a")) {
 			setMuseElements();
+			((FocusDataListener) dataListener).addEegDataProcessingReceiver(this);
 		}
 
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		myGdxGame = new MyGdxGame();
-		((FocusDataListener)dataListener).addEegDataProcessingReceiver(this);
 		initialize(myGdxGame, config);
 	}
 
