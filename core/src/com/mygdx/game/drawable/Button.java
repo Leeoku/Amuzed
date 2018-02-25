@@ -39,7 +39,7 @@ public class Button extends Drawable {
 		shadow.Size = new Vector2(x,5);
 		background.Size = new Vector2(x+10, y);
 
-		shadow.OrginOffset = (new Vector2(0,button.Size.y/2 -15));
+		shadow.OrginOffset = (new Vector2(0,0));//button.Size.y/2 -15));
 		background.OrginOffset = (new Vector2(5, 5));
 		setPosition((int)Size.x, (int)Size.y);
 	}

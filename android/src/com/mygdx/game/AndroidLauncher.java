@@ -14,3 +14,5 @@ public class AndroidLauncher extends AndroidApplication {
 		initialize(new MyGdxGame(), config);
 	}
 }
+
+
