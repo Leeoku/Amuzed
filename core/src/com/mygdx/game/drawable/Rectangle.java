@@ -59,8 +59,6 @@ public class Rectangle extends Drawable {
     	float height = Size.y;
 		ShapeRenderer shapeRenderer = (ShapeRenderer)object;
 
-
-
 		// Central rectangle
 		shapeRenderer.rect(x + radius, y + radius, width - 2*radius, height - 2*radius);
 

@@ -49,13 +49,25 @@ public class GameManager implements InputProcessor {
 		    Colors.rgb(42, 183, 202),
 		    Colors.rgb(12, 98, 145),
 		    Colors.rgb(254, 74, 73),
-		    Colors.rgb(142, 40, 122)
+		    Colors.rgb(142, 40, 122),
+		    Colors.rgb(94, 86, 90),
+		    Colors.rgb(255, 147, 79),
+		    Colors.rgb(32, 163, 158)
+//		    Colors.rgb(186, 63, 29)
     };
     Color goalColor = Colors.Green;
 
     boolean getFocused() {
     	return ((int)Library.random(0,100)%2) == 0;
     }
+
+    //Level and game data variables
+	int level = 1;
+    int index = 0;
+    int cleared = 0;
+    double focusTime = 5;
+    double currentFocusTime = 0;
+
 
     GameManager(MyGdxGame main) {
         this.main = main;
@@ -66,12 +78,6 @@ public class GameManager implements InputProcessor {
         int gameSize = (int)(width * (1 - 2 * padding));
         offset = gameSize / (float)gridSize;
         position = new Vector2();
-
-        img = new Texture("logo.png");
-        sprite = new Sprite(img);
-        float scale = width / sprite.getWidth();
-        sprite.scale(scale);
-        sprite.setPosition(0, height - sprite.getHeight());
 
 	    title = new Text(this.main.font50, "Focus", width/2, height - height*.11f);
 	    title.color = Colors.rgb(42, 183, 202);
@@ -97,7 +103,7 @@ public class GameManager implements InputProcessor {
 
         	rectangles[i] = new Rectangle(x, y, rectangleSize, rectangleSize);
         	rectangles[i].radius = 15;
-        	rectangles[i].Visible = false;
+//        	rectangles[i].Visible = false;
         }
         setRandomRectangleColors();
     }
@@ -110,12 +116,22 @@ public class GameManager implements InputProcessor {
     		rectangles[i].color = getRandomColor();
 	    }
     }
+    void updateRectangles(float delta) {
+
+    }
 
     void restart() {
     	started = false;
     	countingDown = false;
     	life = 0;
 	    testButton = new Button(width/2, height/2, 80, 30);
+
+	    //variable clear
+	    level = 1;
+	    index = 0;
+	    cleared = 0;
+	    focusTime = 5;
+	    currentFocusTime = 0;
     }
 
     void startCountDown() {
@@ -151,8 +167,6 @@ public class GameManager implements InputProcessor {
 
     public void renderText() {
         main.batch.begin();
-        sprite.draw(main.batch);
-//        main.batch.draw(img,0, height - height*.0125f, width, height*.0125f);
         title.render(main.batch, true);
         counter.render(main.batch, true);
         main.batch.end();
