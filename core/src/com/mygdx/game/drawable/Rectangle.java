@@ -14,6 +14,7 @@ public class Rectangle extends Drawable {
     public Vector2 Size;
     public Vector2 Velocity;
     public Vector2 OrginOffset;
+	public float radius = 0;
 
     public Rectangle(float x, float y, float width, float height) {
         Position = new Vector2(x, y);
@@ -56,7 +57,6 @@ public class Rectangle extends Drawable {
     	float y = Position.y;
     	float width = Size.x;
     	float height = Size.y;
-    	float radius = 15;
 		ShapeRenderer shapeRenderer = (ShapeRenderer)object;
 
 
@@ -99,8 +99,10 @@ public class Rectangle extends Drawable {
 
 
         shapeRenderer.setColor(GetTransparentColor());
-//        shapeRenderer.rect(Position.x - OrginOffset.x, Position.y - OrginOffset.y, Size.x, Size.y);
-	    roundedRect(object);
+        if (radius == 0)
+        	shapeRenderer.rect(Position.x - OrginOffset.x, Position.y - OrginOffset.y, Size.x, Size.y);
+        else
+        	roundedRect(object);
 
         if (!started)
             shapeRenderer.end();

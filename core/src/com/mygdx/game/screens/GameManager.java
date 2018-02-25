@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Library;
@@ -25,6 +27,8 @@ public class GameManager implements InputProcessor {
 
     int width = Gdx.graphics.getWidth();
     int height = Gdx.graphics.getHeight();
+	Texture img;
+	Sprite sprite;
 
     public Rectangle rectangle;
     public Rectangle background;
@@ -38,7 +42,7 @@ public class GameManager implements InputProcessor {
 	Text title;
 	Text counter;
 
-    Button testButton = new Button(width/2, height - height/3, 80, 30);
+    Button testButton = new Button(width/2, height - height/3, width/3, width/10);
     Rectangle[] rectangles = new Rectangle[9];
     Color[] colors = {
 		    Colors.rgb(254, 215, 102),
@@ -63,7 +67,13 @@ public class GameManager implements InputProcessor {
         offset = gameSize / (float)gridSize;
         position = new Vector2();
 
-	    title = new Text(this.main.font50, "Focus", width/2, height - height/(height/50));
+        img = new Texture("logo.png");
+        sprite = new Sprite(img);
+        float scale = width / sprite.getWidth();
+        sprite.scale(scale);
+        sprite.setPosition(0, height - sprite.getHeight());
+
+	    title = new Text(this.main.font50, "Focus", width/2, height - height*.11f);
 	    title.color = Colors.rgb(42, 183, 202);
 	    counter = new Text(this.main.font50, "3", width/2, height - 100);
 	    counter.color = Colors.rgb(42, 183, 202);
@@ -77,6 +87,7 @@ public class GameManager implements InputProcessor {
 	        }
         };
         testButton.setRunnable(runnable);
+//        int spacing = 50;
         int rectangleSize = (width - 100)/3;
         for (int i = 0; i < 9; i++) {
         	int x = i % 3;
@@ -85,6 +96,8 @@ public class GameManager implements InputProcessor {
 	        y = y*25 + y*rectangleSize + 50;
 
         	rectangles[i] = new Rectangle(x, y, rectangleSize, rectangleSize);
+        	rectangles[i].radius = 15;
+        	rectangles[i].Visible = false;
         }
         setRandomRectangleColors();
     }
@@ -116,6 +129,9 @@ public class GameManager implements InputProcessor {
     	started = true;
     	counter.Visible = false;
     	title.setText("Focus");
+	    for (int i = 0; i < 9; i++) {
+		    rectangles[i].Visible = true;
+	    }
     }
 
     void print(String title, Vector2 vector) {
@@ -135,6 +151,8 @@ public class GameManager implements InputProcessor {
 
     public void renderText() {
         main.batch.begin();
+        sprite.draw(main.batch);
+//        main.batch.draw(img,0, height - height*.0125f, width, height*.0125f);
         title.render(main.batch, true);
         counter.render(main.batch, true);
         main.batch.end();

@@ -26,7 +26,6 @@ public class MyGdxGame extends Game {
 
 	public static final String GooglePlayLink = "https://play.google.com/store/apps/developer?id=iball";
 
-	Texture img;
 
 	@Override
 	public void create () {
