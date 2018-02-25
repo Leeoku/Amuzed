@@ -27,10 +27,7 @@ public class GameManager implements InputProcessor {
 
     int width = Gdx.graphics.getWidth();
     int height = Gdx.graphics.getHeight();
-	Texture img;
-	Sprite sprite;
 
-    public Rectangle rectangle;
     public Rectangle background;
 
     boolean started = false;
@@ -116,8 +113,21 @@ public class GameManager implements InputProcessor {
     		rectangles[i].color = getRandomColor();
 	    }
     }
-    void updateRectangles(float delta) {
 
+    void updateRectangles(float delta) {
+	    int focus;
+	    if (getFocused()) {
+		    focus = 1;
+	    }   else {
+			focus = 0;
+	    }
+
+    	for (int i = 0; i < 9; i++) {
+			rectangles[i].Update(delta);
+		    //rectangles[i].FadeColor
+	    }
+	    rectangles[index].Fade = true;
+	    rectangles[index].FadeColor = goalColor;
     }
 
     void restart() {
@@ -162,6 +172,8 @@ public class GameManager implements InputProcessor {
 		    } else {
     			startGame();
 		    }
+	    } else {
+    		updateRectangles(delta);
 	    }
     }
 
