@@ -7,9 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.drawable.enums.XAlignment;
 import com.mygdx.game.drawable.enums.YAlignment;
 
-/**
- * Created by isaiah on 2016-05-02.
- */
 public class Text extends Drawable{
     BitmapFont Font;
     String text;

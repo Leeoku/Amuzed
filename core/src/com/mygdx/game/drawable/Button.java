@@ -45,6 +45,7 @@ public class Button extends Drawable {
 	}
 
 	public void checkForClick(int x, int y) {
+		if (!Visible) return;
 		if (button.isCollide(x, y)) {
 			if (runnable == null) return;
 			runnable.run();

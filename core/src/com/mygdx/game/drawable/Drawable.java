@@ -38,7 +38,7 @@ public abstract class Drawable {
 
             if (Life < FadeTime) {
 //	            System.out.println("Life " + Life + ", FadeTime " + FadeTime);
-	            System.out.println("live < fadetime ");
+//	            System.out.println("live < fadetime ");
 
 	            return Colors.interpolate(color, FadeColor, FadeTime, Life);
             } else {

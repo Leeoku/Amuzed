@@ -54,8 +54,9 @@ public class GameManager implements InputProcessor {
     Color goalColor = backgroundColor;
 
     boolean getFocused() {
-    	return ((int)Library.random(0,100)%2) == 0;
+    	return t;
     }
+    	//((int)Library.random(0,100)%2) == 0; }
 
     //Level and game data variables
 	int level = 1;
@@ -63,7 +64,7 @@ public class GameManager implements InputProcessor {
     int cleared = 0;
     double focusTime = 5;
     double currentFocusTime = 0;
-
+	boolean t = false;
 
     GameManager(MyGdxGame main) {
         this.main = main;
@@ -124,10 +125,11 @@ public class GameManager implements InputProcessor {
 	    }   else {
 			focus = 0;
 	    }
+	    System.out.println("Focus " + focus);
 	    currentFocusTime = currentFocusTime + focus * delta;
 
     	for (int i = 0; i < 9; i++) {
-			rectangles[i].Update(delta);
+			rectangles[i].Update(focus * delta);
 		    if (index == i) {
 		    	if (!rectangles[i].Fade) {
 		    		index++;
@@ -244,13 +246,13 @@ public class GameManager implements InputProcessor {
 	    print("Min ", testButton.button.GetMin());
 	    print("Max ", testButton.button.GetMax());
 	    print("Position ", testButton.button.Position);
-
+	    t = true;
 	    return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
+        t = false; return false;
     }
 
     @Override
