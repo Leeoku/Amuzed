@@ -21,13 +21,10 @@ import java.util.List;
 
 public class FocusDataListener extends MuseDataListener {
 
-
-    public static final int MAX_POLL_SECONDS = 3;
-
     private static final int EEG_STALE_DELAY_MS = 1000;
 
     private MuseDataStorage dataStorage;
-    private boolean eegStale;
+    private boolean alphaStale;
     private boolean firstPacketReceived;
     private Handler handler;
     private List<EegDataProcessingReceiver> receivers;
@@ -43,12 +40,11 @@ public class FocusDataListener extends MuseDataListener {
 
         if (!firstPacketReceived) {
             firstPacketReceived = true;
-            handler.post(changeEegStale());
+            handler.post(changeAlphaStale());
         }
 
-        if (p.packetType() == MuseDataPacketType.EEG && !eegStale) {
+        if (p.packetType() == MuseDataPacketType.ALPHA_RELATIVE && !alphaStale) {
             dataStorage.addToBuffer(p.getEegChannelValue(Eeg.EEG1));
-            dataStorage.addToBuffer(p.getEegChannelValue(Eeg.EEG4));
         }
     }
 
@@ -65,31 +61,24 @@ public class FocusDataListener extends MuseDataListener {
         receivers.add(eegDataProcessingReceiver);
     }
 
-    private Runnable changeEegStale() {
+    private Runnable changeAlphaStale() {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                eegStale = true;
-                // Add average from samples
-                dataStorage.addSecondValue(EegProcessingUtil.processBufferSamples(dataStorage.getBufferValues()));
-                Log.d(FocusDataListener.this.getClass().getSimpleName(), "Processed buffer sample: " + EegProcessingUtil.processBufferSamples(dataStorage.getBufferValues()));
+                alphaStale = true;
+                Double alpha = EegProcessingUtil.processBufferSamples(dataStorage.getBufferValues());
+                Log.d(getClass().getSimpleName(), "alpha: " + alpha);
                 dataStorage.clearBuffer();
 
-                Log.d(FocusDataListener.this.getClass().getSimpleName(), "Sample averages seconds: " + dataStorage.getCurrentAverageSeconds());
-
-                if (dataStorage.getCurrentAverageSeconds() == MAX_POLL_SECONDS) {
-                    Log.d(FocusDataListener.this.getClass().getSimpleName(), "Is user calm? " + EegProcessingUtil.processSamplesAverage(dataStorage.getSampleAverages()));
-
-                    // Send the updates to the receivers
-                    int size = receivers.size();
-                    for (int i = 0; i < size; i++) {
-                        boolean userCalm = EegProcessingUtil.processSamplesAverage(dataStorage.getSampleAverages());
-                        receivers.get(i).onEegDataProcessed(userCalm);
-                    }
-                    dataStorage.clearSecondValue();
+                // Send the updates to the receivers
+                int size = receivers.size();
+                for (int i = 0; i < size; i++) {
+                    boolean userCalm = EegProcessingUtil.processSamplesAverage(alpha);
+                    receivers.get(i).onEegDataProcessed(userCalm);
                 }
-                eegStale = false;
-                handler.postDelayed(changeEegStale(), EEG_STALE_DELAY_MS);
+
+                alphaStale = false;
+                handler.postDelayed(changeAlphaStale(), EEG_STALE_DELAY_MS);
             }
 
         };

@@ -24,7 +24,9 @@ public class MyGdxGame extends Game {
 
 	public static final String GooglePlayLink = "https://play.google.com/store/apps/developer?id=iball";
 	public void focusing(boolean isUserCalm) {
-		currentScreen.focusing(isUserCalm);
+		if (currentScreen != null) {
+			currentScreen.focusing(isUserCalm);
+		}
 	}
 
 	@Override

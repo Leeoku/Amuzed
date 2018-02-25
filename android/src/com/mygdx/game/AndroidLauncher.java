@@ -66,7 +66,7 @@ public class AndroidLauncher extends AndroidApplication implements EegDataProces
 			muse = managerAndroid.getMuses().get(0);
 
 			Log.d(getClass().getSimpleName(), "Muse information: " + muse.getName());
-			muse.registerDataListener(dataListener, MuseDataPacketType.EEG);
+			muse.registerDataListener(dataListener, MuseDataPacketType.ALPHA_RELATIVE);
 			muse.runAsynchronously();
 
 		}
@@ -98,6 +98,7 @@ public class AndroidLauncher extends AndroidApplication implements EegDataProces
 
 	@Override
 	public void onEegDataProcessed(boolean isUserCalm) {
+		Log.d(getClass().getSimpleName(), "isUserCalm: " + isUserCalm);
 		myGdxGame.focusing(isUserCalm);
 	}
 }
