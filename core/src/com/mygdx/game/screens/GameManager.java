@@ -62,7 +62,7 @@ public class GameManager implements InputProcessor {
     int cleared = 0;
     double focusTime = 5;
     double currentFocusTime = 0;
-	boolean t = false;
+	public boolean t = false;
 
     GameManager(MyGdxGame main) {
         this.main = main;
@@ -76,7 +76,7 @@ public class GameManager implements InputProcessor {
 
 	    title = new Text(this.main.font50, "Focus", width/2, height - height*.11f);
 	    title.color = Colors.rgb(42, 183, 202);
-	    counter = new Text(this.main.font50, "3", width/2, height - 100);
+	    counter = new Text(this.main.font50, "3", width/2, height - height*.15f - 50);
 	    counter.color = Colors.rgb(42, 183, 202);
 	    counter.Visible = false;
 
@@ -238,13 +238,13 @@ public class GameManager implements InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         touchedDown = new Vector2(screenX, screenY);
 	    testButton.checkForClick(screenX, height - screenY);
-	    t = false;
+//	    t = false;
 	    return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        t = true;
+//        t = true;
         return false;
     }
 
