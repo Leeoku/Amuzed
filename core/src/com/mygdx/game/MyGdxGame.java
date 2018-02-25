@@ -11,8 +11,6 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.screens.GameScreen;
 
-import sun.security.pkcs11.wrapper.Functions;
-
 public class MyGdxGame extends Game {
 	public static int Width = (int)(1080 * 0.3);
 	public static int Height = (int)(1920 * 0.3);
@@ -20,12 +18,14 @@ public class MyGdxGame extends Game {
 
 	public SpriteBatch batch;
 	public ShapeRenderer shapeRenderer;
-	public Screen currentScreen;
+	public GameScreen currentScreen;
 	public BitmapFont font16, font20, font50;
 	public Preferences preferences;
 
 	public static final String GooglePlayLink = "https://play.google.com/store/apps/developer?id=iball";
-
+	public void focusing(boolean isUserCalm) {
+		currentScreen.focusing(isUserCalm);
+	}
 
 	@Override
 	public void create () {

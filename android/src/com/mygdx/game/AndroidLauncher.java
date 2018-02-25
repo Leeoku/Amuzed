@@ -17,10 +17,11 @@ import com.choosemuse.libmuse.MuseDataPacketType;
 import com.choosemuse.libmuse.MuseListener;
 import com.choosemuse.libmuse.MuseManagerAndroid;
 import com.mygdx.game.muse.data.MuseDataStorage;
+import com.mygdx.game.muse.listeners.EegDataProcessingReceiver;
 import com.mygdx.game.muse.listeners.FocusDataListener;
 import com.mygdx.game.muse.listeners.FocusListener;
 
-public class AndroidLauncher extends AndroidApplication {
+public class AndroidLauncher extends AndroidApplication implements EegDataProcessingReceiver {
 
 	private MuseManagerAndroid managerAndroid;
 	private MuseListener listener;
@@ -29,7 +30,7 @@ public class AndroidLauncher extends AndroidApplication {
 	private MuseDataStorage museDataStorage;
 	private Muse muse;
 	private Handler handler;
-
+	MyGdxGame myGdxGame;
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,7 +41,9 @@ public class AndroidLauncher extends AndroidApplication {
 		}
 
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new MyGdxGame(), config);
+		myGdxGame = new MyGdxGame();
+		((FocusDataListener)dataListener).addEegDataProcessingReceiver(this);
+		initialize(myGdxGame, config);
 	}
 
 	private void setMuseElements() {
@@ -91,6 +94,11 @@ public class AndroidLauncher extends AndroidApplication {
             ((FocusDataListener) dataListener).stopListening();
 			muse.disconnect();
 		}
+	}
+
+	@Override
+	public void onEegDataProcessed(boolean isUserCalm) {
+		myGdxGame.focusing(isUserCalm);
 	}
 }
 

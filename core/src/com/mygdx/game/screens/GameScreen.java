@@ -18,7 +18,9 @@ public class GameScreen implements Screen {
         gameManager = new GameManager(main);
         fps = Math.round(1/ Gdx.graphics.getDeltaTime());
     }
-
+	public void focusing(boolean isUserCalm) {
+    	gameManager.t = isUserCalm;
+	}
     @Override
     public void show() {}
 
