@@ -8,7 +8,11 @@ import com.choosemuse.libmuse.MuseConnectionListener;
 import com.choosemuse.libmuse.MuseConnectionPacket;
 
 /**
- * Created by isaac on 2018-02-25.
+ *
+ * Listener used to determine the state of a Muse device
+ *
+ * @author A-Muse-D
+ *
  */
 
 public class FocusConnectionListener extends MuseConnectionListener {

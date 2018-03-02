@@ -21,6 +21,11 @@ import com.mygdx.game.muse.listeners.EegDataProcessingReceiver;
 import com.mygdx.game.muse.listeners.FocusDataListener;
 import com.mygdx.game.muse.listeners.FocusListener;
 
+/**
+ * Concrete implementation of {@link AndroidApplication} in which game events can react based
+ * on Muse's data output using {@link EegDataProcessingReceiver}
+ */
+
 public class AndroidLauncher extends AndroidApplication implements EegDataProcessingReceiver {
 
 	private MuseManagerAndroid managerAndroid;
@@ -31,6 +36,7 @@ public class AndroidLauncher extends AndroidApplication implements EegDataProces
 	private Muse muse;
 	private Handler handler;
 	MyGdxGame myGdxGame;
+
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,6 +52,9 @@ public class AndroidLauncher extends AndroidApplication implements EegDataProces
 		initialize(myGdxGame, config);
 	}
 
+	/**
+	 * Initializes the components for the Muse headband to communicate with the application.
+	 */
 	private void setMuseElements() {
 
 		managerAndroid = MuseManagerAndroid.getInstance();
@@ -72,6 +81,10 @@ public class AndroidLauncher extends AndroidApplication implements EegDataProces
 		}
 	}
 
+	/**
+	 * Displays a dialog that forces the user to connect the user using {@link ConnectActivity} if
+	 * that hasn't been the case.
+	 */
 	private void showConnectDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.connect_dialog_title);

@@ -7,7 +7,10 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * Created by isaac on 2018-02-25.
+ * First screen which the user see upon opening the application. He/she will have the choice between
+ * going to {@link ConnectActivity} and {@link AndroidLauncher}
+ *
+ * @author A-Muse-D
  */
 
 public class MainActivity extends AppCompatActivity {

@@ -16,7 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by isaac on 2018-02-25.
+ * Concrete implementation of {@link MuseDataListener} used to process data received from
+ * the Muse headband.
+ *
+ * @author A-Muse-D
  */
 
 public class FocusDataListener extends MuseDataListener {
@@ -29,6 +32,11 @@ public class FocusDataListener extends MuseDataListener {
     private Handler handler;
     private List<EegDataProcessingReceiver> receivers;
 
+    /**
+     * Default constructor
+     *
+     * @param museDataStorage the {@link MuseDataStorage} used for temporary buffer
+     */
     public FocusDataListener(MuseDataStorage museDataStorage) {
         dataStorage = museDataStorage;
         handler = new Handler();
@@ -57,10 +65,21 @@ public class FocusDataListener extends MuseDataListener {
         }
     }
 
+    /**
+     * Adds a receiver that gets notified on changes that has happened with the Muse.
+     *
+     * @param eegDataProcessingReceiver the related receivers
+     */
     public void addEegDataProcessingReceiver(EegDataProcessingReceiver eegDataProcessingReceiver) {
         receivers.add(eegDataProcessingReceiver);
     }
 
+    /**
+     * External method that is used to process the Muse data from a fixed interval defined by
+     * {@link #EEG_STALE_DELAY_MS}
+     *
+     * @return the {@link Runnable} that will be used to process the EEG data
+     */
     private Runnable changeAlphaStale() {
         Runnable runnable = new Runnable() {
             @Override
@@ -85,6 +104,9 @@ public class FocusDataListener extends MuseDataListener {
         return (runnable);
     }
 
+    /**
+     * Stops the ongoing processing of a Muse's data output.
+     */
     public void stopListening() {
         handler.removeCallbacksAndMessages(null);
     }
