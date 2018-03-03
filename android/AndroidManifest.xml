@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mygdx.game" >
 
+    <!-- Here we define the permissions that will be used by the device -->
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -11,11 +12,16 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/GdxTheme" >
+
+        <!-- Here we define the activities (different screens/section) of the app -->
+        <!-- AndroidLauncher is responsible for the whole game -->
         <activity
             android:name="com.mygdx.game.AndroidLauncher"
             android:screenOrientation="portrait"
             android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize">
         </activity>
+        <!-- MainActivity gives the choices for the user to either connect the Muse headband or play the game -->
+        <!-- As noted in it's intent filters, it is the one that will be seen in the user's home screen -->
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -23,6 +29,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- ConnectActivity is responsible for connecting the Muse to the device after it has been paired with Bluetooth -->
         </activity>
         <activity android:name=".ConnectActivity"/>
     </application>
