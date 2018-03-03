@@ -20,6 +20,14 @@ as a companion, focus the more you can to make the squares (and worries) disappe
     - Samsung Galaxy S - S5
     - Samsung Galaxy Note - Note 4
 
+## Potential future features
+
+These features might be considered for a potential future release
+of Focus based on received user feedback.
+
+- Add different profiles based on a person (Difficulty)
+- Add sound feedback when a square disappears (User might focus with eyes closed)
+- Save brainwaves information to a external file for future usage.
 
 _Note: The following section is optional and is only there for basic learning about the application._
 
